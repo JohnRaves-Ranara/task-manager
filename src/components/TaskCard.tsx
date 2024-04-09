@@ -15,13 +15,14 @@ type TaskCardProps = {
     description: string;
     isChecked: boolean;
     toggleCheckBox: Function;
+    groupType: string;
 }
 
-const TaskCard = ({index, title, description, isChecked, toggleCheckBox} : TaskCardProps) => {
+const TaskCard = ({index, title, description, isChecked, toggleCheckBox, groupType} : TaskCardProps) => {
   return (
     <Card className="max-w-[300px] bg-red-200">
       <CardHeader className="flex flex-row items-start gap-4">
-        <Checkbox checked={isChecked} onClick={() => toggleCheckBox(index)} className="size-6 mt-2"></Checkbox>
+        <Checkbox checked={isChecked} onClick={() => toggleCheckBox(index, groupType)} className="size-6 mt-2"></Checkbox>
         <div className="space-y-4">
           <CardTitle className="text-lg">{title}</CardTitle>
           <CardDescription>

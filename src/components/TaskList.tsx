@@ -1,7 +1,13 @@
 import TaskCard from "./TaskCard";
 
+type Task = {
+  title: string
+  description: string
+  isChecked: boolean
+}
+
 type TaskListProps = {
-  tasks: any[]
+  tasks: Task[]
   toggleCheckBox: Function
 }
 
@@ -12,7 +18,7 @@ const TaskList = ({tasks, toggleCheckBox} : TaskListProps) => {
       <div className="flex gap-3">
         {tasks.map((task, index)=> {
           return (
-            <TaskCard index={index} title={task.title} description={task.description} isChecked={task.isChecked} toggleCheckBox={toggleCheckBox}/>
+            <TaskCard index={index} title={task.title} description={task.description} isChecked={task.isChecked} toggleCheckBox={toggleCheckBox} groupType="tasks"/>
           )
         })}
       </div>

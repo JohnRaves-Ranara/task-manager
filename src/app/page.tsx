@@ -6,8 +6,15 @@ import Dashboard from "@/components/Dashboard";
 
 
 export default function Home() {
-  
-  let taskList = [
+
+  type Task = {
+    title: string
+    description: string
+    isChecked: boolean
+  }
+
+
+  const [tasks, setTasks] = useState<Task[]>([
     {
       title: "task1",
       description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, perferendis.",
@@ -18,17 +25,21 @@ export default function Home() {
       description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, perferendis.",
       isChecked: false
     },
-  ]
+  ])
+  const [completedTasks, setCompletedTasks] = useState<Task[]>([])
 
-  let completedTaskList:any[] = []
-
-  const [tasks, setTasks] = useState(taskList)
-  const [completedTasks, setCompletedTasks] = useState(completedTaskList)
-
-  const toggleCheckBox = (index:number) => {
-    let newTasks = [...tasks]
-    newTasks[index].isChecked = !newTasks[index].isChecked
-    setTasks(newTasks)
+  const toggleCheckBox = (taskIndex:number, groupType:string) => {
+    if(groupType==='tasks'){
+      const taskToggled:Task = tasks[taskIndex]
+      taskToggled.isChecked = !taskToggled.isChecked
+      setTasks(tasks.filter((task, index) => index !== taskIndex))
+      setCompletedTasks([...completedTasks, taskToggled])
+    }else{
+      const taskToggled:Task = completedTasks[taskIndex]
+      taskToggled.isChecked = !taskToggled.isChecked
+      setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
+      setTasks([...tasks, taskToggled])
+    }
   }
 
   const addTask = (title:string, description:string, isChecked: boolean) => {
