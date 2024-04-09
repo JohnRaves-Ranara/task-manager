@@ -52,9 +52,7 @@ export default function Home() {
       description,
       isChecked
     }
-    let newTasks = [...tasks]
-    newTasks.push(newTask)
-    setTasks(newTasks)
+    setTasks([...tasks, newTask])
   }
 
   return (

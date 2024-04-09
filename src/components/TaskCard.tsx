@@ -20,7 +20,7 @@ type TaskCardProps = {
 
 const TaskCard = ({index, title, description, isChecked, toggleCheckBox, groupType} : TaskCardProps) => {
   return (
-    <Card className="max-w-[300px] bg-red-200">
+    <Card className="max-w-[330px] bg-red-200">
       <CardHeader className="flex flex-row items-start gap-4">
         <Checkbox checked={isChecked} onClick={() => toggleCheckBox(index, groupType)} className="size-6 mt-2"></Checkbox>
         <div className="space-y-4">

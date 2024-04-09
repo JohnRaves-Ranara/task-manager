@@ -13,12 +13,12 @@ type Task = {
 type DashboardProps = {
   tasks: Task[]
   completedTasks: Task[]
-  toggleCheckBox: Function
+  toggleCheckBox: (taskIndex:number, groupType:string) => void;
 };
 
 const Dashboard = ({ tasks, completedTasks, toggleCheckBox}: DashboardProps) => {
   return (
-      <div className="flex flex-col min-h-[88dvh] gap-6 items-start justify-center mx-12">
+      <div className="flex flex-col gap-6 items-start justify-center px-12 pt-6 pb-12">
         <TaskList tasks={tasks} toggleCheckBox={toggleCheckBox}/>
         <Completed completedTasks={completedTasks} toggleCheckBox={toggleCheckBox} />
       </div>
