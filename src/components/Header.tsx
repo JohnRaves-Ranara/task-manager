@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export default function Header({addTask} : HeaderProps) {
   return (
-    <div className="flex justify-between py-4 px-4 w-screen items-center fixed">
+    <div className="flex justify-between py-4 pl-5 pr-8 w-screen items-center h-[12dvh]">
       <h1 className="font-bold text-base">Task Management</h1>
       {/* <button className="lg:hidden box-content p-1 rounded-lg border-black border-3 border-solid bg-blue-200 text-black text-base">Add Task</button> */}
       <Button onClick={() => addTask("todo 420", "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, perferendis.", false)}>Add Task</Button>

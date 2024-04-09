@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Completed from "./Completed";
 import TaskCard from "./TaskCard";
-import Todos from "./Todos";
+import TaskList from "./TaskList";
 import Header from "./Header";
 
 type DashboardProps = {
@@ -12,8 +12,8 @@ type DashboardProps = {
 
 const Dashboard = ({ tasks, completedTasks, toggleCheckBox}: DashboardProps) => {
   return (
-      <div className="flex flex-col h-screen gap-6 items-start justify-center">
-        <Todos tasks={tasks} toggleCheckBox={toggleCheckBox}/>
+      <div className="flex flex-col min-h-[88dvh] gap-6 items-start justify-center mx-12">
+        <TaskList tasks={tasks} toggleCheckBox={toggleCheckBox}/>
         <Completed />
       </div>
   );
