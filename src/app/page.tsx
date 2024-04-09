@@ -4,15 +4,13 @@ import TaskCard from "@/components/TaskCard";
 import Header from "@/components/Header";
 import Dashboard from "@/components/Dashboard";
 
+export type Task = {
+  title: string
+  description: string
+  isChecked: boolean
+}
 
 export default function Home() {
-
-  type Task = {
-    title: string
-    description: string
-    isChecked: boolean
-  }
-
 
   const [tasks, setTasks] = useState<Task[]>([
     {

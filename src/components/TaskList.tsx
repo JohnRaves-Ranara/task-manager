@@ -1,10 +1,6 @@
+import { Task } from "@/app/page";
 import TaskCard from "./TaskCard";
 
-type Task = {
-  title: string;
-  description: string;
-  isChecked: boolean;
-};
 
 type TaskListProps = {
   tasks: Task[];

@@ -3,12 +3,7 @@ import Completed from "./Completed";
 import TaskCard from "./TaskCard";
 import TaskList from "./TaskList";
 import Header from "./Header";
-
-type Task = {
-  title: string
-  description: string
-  isChecked: boolean
-}
+import { Task } from "@/app/page";
 
 type DashboardProps = {
   tasks: Task[]
