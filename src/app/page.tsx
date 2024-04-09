@@ -32,12 +32,16 @@ export default function Home() {
     if(groupType==='tasks'){
       const taskToggled:Task = tasks[taskIndex]
       taskToggled.isChecked = !taskToggled.isChecked
+      //remove task from tasks
       setTasks(tasks.filter((task, index) => index !== taskIndex))
+      //add task to completed tasks
       setCompletedTasks([...completedTasks, taskToggled])
     }else{
       const taskToggled:Task = completedTasks[taskIndex]
       taskToggled.isChecked = !taskToggled.isChecked
+      //remove task from completed tasks
       setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
+      //add task to tasks
       setTasks([...tasks, taskToggled])
     }
   }
