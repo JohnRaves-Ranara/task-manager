@@ -1,8 +1,8 @@
 import AddTask from "./AddTask";
-
+import { Task } from "@/app/page";
 
 type HeaderProps = {
-  addTask: (title: string, description:string, isChecked: false) => void
+  addTask: (newTask: Task) => void
 }
 
 export default function Header({addTask} : HeaderProps) {

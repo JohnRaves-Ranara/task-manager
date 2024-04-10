@@ -24,9 +24,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
+import { Task } from "@/app/page";
 
 type AddTaskProps = {
-  addTask: (title: string, description: string, isChecked: false) => void;
+  addTask: (newTask: Task) => void;
 };
 
 const formSchema = z.object({
@@ -48,13 +49,13 @@ const AddTask = ({ addTask }: AddTaskProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: "hahahadshahdahsd",
+      description: "curry",
     },
   });
   
   function onSubmit(values: z.infer<typeof formSchema>) {
-    addTask(values.title, values.description, false)
+    addTask({...values, isChecked:false})
     form.reset()
     setOpenDialog(false)
   }

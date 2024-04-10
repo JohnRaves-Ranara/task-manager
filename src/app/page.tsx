@@ -22,14 +22,14 @@ export default function Home() {
   const toggleCheckBox = (taskIndex:number, groupType:string) => {
     if(groupType==='tasks'){
       const taskToggled:Task = tasks[taskIndex]
-      taskToggled.isChecked = !taskToggled.isChecked
+      taskToggled.isChecked = true
       //remove task from tasks
       setTasks(tasks.filter((task, index) => index !== taskIndex))
       //add task to completed tasks
       setCompletedTasks([...completedTasks, taskToggled])
     }else{
       const taskToggled:Task = completedTasks[taskIndex]
-      taskToggled.isChecked = !taskToggled.isChecked
+      taskToggled.isChecked = false
       //remove task from completed tasks
       setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
       //add task to tasks
@@ -37,12 +37,7 @@ export default function Home() {
     }
   }
 
-  const addTask = (title:string, description:string, isChecked: boolean) => {
-    let newTask = {
-      title,
-      description,
-      isChecked
-    }
+  const addTask = (newTask: Task) => {
     setTasks([...tasks, newTask])
   }
 
