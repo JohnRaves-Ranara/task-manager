@@ -16,18 +16,7 @@ export type Task = {
 
 export default function Home() {
 
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      title: "task1",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, perferendis.",
-      isChecked: false
-    },
-    {
-      title: "task2",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores, perferendis.",
-      isChecked: false
-    },
-  ])
+  const [tasks, setTasks] = useState<Task[]>([])
   const [completedTasks, setCompletedTasks] = useState<Task[]>([])
 
   const toggleCheckBox = (taskIndex:number, groupType:string) => {
