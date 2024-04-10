@@ -16,6 +16,7 @@ const Completed = ({ completedTasks, toggleCheckBox }: CompletedProps) => {
         ) : (
           completedTasks.map((task, index) => (
             <TaskCard
+              key={index}
               index={index}
               title={task.title}
               description={task.description}

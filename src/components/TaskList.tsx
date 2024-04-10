@@ -18,6 +18,7 @@ const TaskList = ({ tasks, toggleCheckBox }: TaskListProps) => {
           tasks.map((task, index) => {
             return (
               <TaskCard
+                key={index}
                 index={index}
                 title={task.title}
                 description={task.description}
