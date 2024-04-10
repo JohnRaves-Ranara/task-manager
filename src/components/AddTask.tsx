@@ -25,10 +25,9 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { Task } from "@/app/page";
+import { HeaderProps } from "./Header";
 
-type AddTaskProps = {
-  addTask: (newTask: Task) => void;
-};
+type AddTaskProps = HeaderProps
 
 const formSchema = z.object({
   title: z

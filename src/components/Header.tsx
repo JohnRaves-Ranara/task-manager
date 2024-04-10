@@ -1,7 +1,7 @@
 import AddTask from "./AddTask";
 import { Task } from "@/app/page";
 
-type HeaderProps = {
+export type HeaderProps = {
   addTask: (newTask: Task) => void
 }
 
