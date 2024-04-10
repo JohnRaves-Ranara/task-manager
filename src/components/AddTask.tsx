@@ -1,6 +1,7 @@
 "use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -22,6 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
 
 type AddTaskProps = {
   addTask: (title: string, description: string, isChecked: false) => void;
@@ -36,13 +38,13 @@ const formSchema = z.object({
     .max(50),
   description: z
     .string()
-    .min(10, {
-      message: "Description must be atleast 10 characters.",
-    })
     .max(200),
 });
 
 const AddTask = ({ addTask }: AddTaskProps) => {
+
+  const [openDialog, setOpenDialog] = useState(false)
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,13 +52,17 @@ const AddTask = ({ addTask }: AddTaskProps) => {
       description: "",
     },
   });
+  
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ ...values, isChecked: false });
+    addTask(values.title, values.description, false)
+    setOpenDialog(false)
   }
 
   return (
     <div>
-      <Dialog>
+      <Dialog open= {openDialog} onOpenChange={() => {
+        setOpenDialog(!openDialog)
+      }} >
         <DialogTrigger asChild>
           <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button>
         </DialogTrigger>
