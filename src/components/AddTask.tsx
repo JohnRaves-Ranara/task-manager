@@ -55,6 +55,7 @@ const AddTask = ({ addTask }: AddTaskProps) => {
   
   function onSubmit(values: z.infer<typeof formSchema>) {
     addTask(values.title, values.description, false)
+    form.reset()
     setOpenDialog(false)
   }
 
