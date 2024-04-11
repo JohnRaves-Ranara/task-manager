@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { createContext, useState } from "react";
 import TaskCard from "@/components/TaskCard";
 import Header from "@/components/Header";
 import Dashboard from "@/components/Dashboard";
@@ -14,10 +14,12 @@ export type Task = {
   isChecked: boolean
 }
 
-export default function Home() {
 
+export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [completedTasks, setCompletedTasks] = useState<Task[]>([])
+  // const taskContext = createContext({tasks, setTasks})
+  // const completedTasksContext = createContext({completedTasks, setCompletedTasks})
 
   const toggleCheckBox = (taskIndex:number, groupType:string) => {
     if(groupType==='tasks'){
@@ -41,10 +43,27 @@ export default function Home() {
     setTasks([...tasks, newTask])
   }
 
+  const editTask = (taskIndex: number,editedTask: Task) => {
+    const newTasks = tasks.map((task, index) =>  {
+      if(index===taskIndex){
+        return editedTask
+      }else{
+        return task
+      }
+    })
+    setTasks(newTasks)
+  }
+
   return (
     <div>
-      <Header addTask={addTask}/>
-      <Dashboard tasks={tasks} completedTasks={completedTasks} toggleCheckBox={toggleCheckBox}/>
+      <Header addTask={addTask}></Header>
+      <Dashboard tasks= {tasks} completedTasks={completedTasks} toggleCheckBox={toggleCheckBox}/>
+      {/* <taskContext.Provider value={{tasks, setTasks}}>
+        <completedTasksContext.Provider value={{completedTasks, setCompletedTasks}}>
+          <Header ></Header>
+        </completedTasksContext.Provider>
+      </taskContext.Provider> */}
     </div>
   );
+
 }
