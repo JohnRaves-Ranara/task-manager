@@ -27,6 +27,7 @@ import React, { useState } from "react";
 import { Task } from "@/app/page";
 import { useTasksContext } from "@/contexts/tasks-context";
 import { useTaskActionDialogContext } from "@/contexts/taskaction-dialog-context";
+import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 const formSchema = z.object({
   title: z
@@ -35,61 +36,107 @@ const formSchema = z.object({
       message: "Title must be atleast 5 characters.",
     })
     .max(50),
-  description: z
-    .string()
-    .max(200),
+  description: z.string().max(200),
 });
 
 type TaskActionProps = {
-  actionType: 'add' | 'edit'
-  title? : string
-  description? : string
-  editDialogTrigger? : React.ReactNode
-}
+  taskIndex?: number;
+  actionType: "add" | "edit";
+  title?: string;
+  description?: string;
+};
 
-const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskActionProps) => {
+const TaskAction = ({
+  taskIndex,
+  actionType,
+  title,
+  description,
+}: TaskActionProps) => {
   //CONTEXT
-  const {tasks, setTasks} = useTasksContext()
-  const {openDialog, setOpenDialog} = useTaskActionDialogContext()
-
-  //add task function
-  const addTask = (newTask: Task) => {
-    setTasks([...tasks, newTask])
-  }
+  const { tasks, setTasks } = useTasksContext();
+  const { openDialog, setOpenDialog } = useTaskActionDialogContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: `${actionType==='add' ? '' : title}`,
-      description: `${actionType==='add' ? '' : description}`,
+      title: `${actionType === "add" ? "" : title}`,
+      description: `${actionType === "add" ? "" : description}`,
     },
   });
-  
+
   function onSubmitAddTask(values: z.infer<typeof formSchema>) {
-    addTask({...values, isChecked:false})
-    form.reset()
-    setOpenDialog(false)
+    const newTask: Task = { ...values, isChecked: false };
+    setTasks([...tasks, newTask]);
+    form.reset();
+    setOpenDialog(false);
   }
 
   function onSubmitEditTask(values: z.infer<typeof formSchema>) {
-    //edit function here
+    if (taskIndex !== undefined) {
+      const taskToBeEdited: Task = tasks[taskIndex];
+      //edit the task
+      const editedTask: Task = {
+        ...values,
+        isChecked: taskToBeEdited.isChecked,
+      };
+      //update tasks with a new array that replaces the old task with the new
+      const updatedTasks = tasks.map((task, index) => {
+        if (index === taskIndex) {
+          return editedTask;
+        } else {
+          return task;
+        }
+      });
+      setTasks(updatedTasks);
+      setOpenDialog(false);
+    }
   }
 
   return (
-    
     <div>
-      <Dialog open= {openDialog} onOpenChange={() => {
-        setOpenDialog(!openDialog)
-      }}>
-        <DialogTrigger asChild>
-          {actionType === 'add' ? <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button> : editDialogTrigger}
-        </DialogTrigger>
+      <Dialog
+        open={openDialog}
+        onOpenChange={() => {
+          setOpenDialog(!openDialog);
+        }}
+      >
+        {actionType === "add" ? (
+          <Button
+            className="h-16 w-36 text-md rounded-xl"
+            onClick={() => {
+              setOpenDialog(true);
+            }}
+          >
+            Add Task
+          </Button>
+        ) : (
+          <DialogTrigger className="w-full">
+            <button
+              onClick={() => {
+                setOpenDialog(true);
+              }}
+              className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm"
+            >
+              Edit
+            </button>
+          </DialogTrigger>
+        )}
+
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{actionType==='add' ? 'Add' : 'Edit'} a Task</DialogTitle>
+            <DialogTitle>
+              {actionType === "add" ? "Add" : "Edit"} a Task
+            </DialogTitle>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={actionType==='add' ? form.handleSubmit(onSubmitAddTask) : form.handleSubmit(onSubmitEditTask)} className="space-y-6">
+            <form
+              onSubmit={
+                actionType === "add"
+                  ? form.handleSubmit(onSubmitAddTask)
+                  : form.handleSubmit(onSubmitEditTask)
+              }
+              className="space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="title"
@@ -120,7 +167,7 @@ const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskAc
                 )}
               />
               <Button type="submit" className="w-full">
-                Add Task
+                {actionType === "add" ? "Add" : "Edit"} Task
               </Button>
             </form>
           </Form>

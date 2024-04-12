@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TaskActionDialogContextProvider, { useTaskActionDialogContext } from "@/contexts/taskaction-dialog-context";
 import TaskAction from "./TaskAction";
 
 type TaskCardProps = {
@@ -37,6 +38,7 @@ const TaskCard = ({
 }: TaskCardProps) => {
   const { tasks, setTasks } = useTasksContext();
   const { completedTasks, setCompletedTasks } = useCompletedTasksContext();
+  const {openDialog, setOpenDialog} = useTaskActionDialogContext()
 
   const toggleCheckBox = (taskIndex: number, groupType: string) => {
     if (groupType === "tasks") {
@@ -91,8 +93,8 @@ const TaskCard = ({
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            {/* <TaskAction actionType="edit" title={title} description={description}></TaskAction> */}
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <TaskAction actionType="edit" taskIndex={index} title={title} description={description}/>
+            <button className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm">Delete</button>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>

@@ -21,7 +21,7 @@ export const TaskActionContext = createContext<TaskActionContext | null>(null)
 
 export default function TaskActionDialogContextProvider({children} : TaskActionContextProviderProps){
     const [openDialog, setOpenDialog] = useState(false)
-
+    
     return (
         <TaskActionContext.Provider value={{
             openDialog,
