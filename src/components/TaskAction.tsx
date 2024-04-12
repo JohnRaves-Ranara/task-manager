@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Task } from "@/app/page";
 import { useTasksContext } from "@/contexts/tasks-context";
 
@@ -39,10 +39,18 @@ const formSchema = z.object({
     .max(200),
 });
 
-const AddTask = () => {
+type TaskActionProps = {
+  actionType: 'add' | 'edit'
+  title? : string
+  description? : string
+  editDialogTrigger? : React.ReactNode
+}
 
+const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskActionProps) => {
   //CONTEXT
   const {tasks, setTasks} = useTasksContext()
+
+  //add task function
   const addTask = (newTask: Task) => {
     setTasks([...tasks, newTask])
   }
@@ -52,15 +60,21 @@ const AddTask = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "hahahadshahdahsd",
-      description: "curry",
+      title: `${actionType==='add' ? '' : title}`,
+      description: `${actionType==='add' ? '' : description}`,
     },
   });
   
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmitAddTask(values: z.infer<typeof formSchema>) {
     addTask({...values, isChecked:false})
     form.reset()
     setOpenDialog(false)
+  }
+
+  function onSubmitEditTask(values: z.infer<typeof formSchema>) {
+    // addTask({...values, isChecked:false})
+    // form.reset()
+    // setOpenDialog(false)
   }
 
   return (
@@ -68,16 +82,16 @@ const AddTask = () => {
     <div>
       <Dialog open= {openDialog} onOpenChange={() => {
         setOpenDialog(!openDialog)
-      }} >
+      }}>
         <DialogTrigger asChild>
-          <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button>
+          {actionType === 'add' ? <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button> : editDialogTrigger}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add a Task</DialogTitle>
+            <DialogTitle>{actionType==='add' ? 'Add' : 'Edit'} a Task</DialogTitle>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={actionType==='add' ? form.handleSubmit(onSubmitAddTask) : form.handleSubmit(onSubmitEditTask)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="title"
@@ -118,4 +132,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default TaskAction;
