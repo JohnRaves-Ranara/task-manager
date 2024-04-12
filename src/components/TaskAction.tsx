@@ -110,16 +110,14 @@ const TaskAction = ({
             Add Task
           </Button>
         ) : (
-          <DialogTrigger className="w-full">
-            <button
-              onClick={() => {
-                setOpenDialog(true);
-              }}
-              className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm"
-            >
-              Edit
-            </button>
-          </DialogTrigger>
+          <button
+            onClick={() => {
+              setOpenDialog(true);
+            }}
+            className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm"
+          >
+            Edit
+          </button>
         )}
 
         <DialogContent className="sm:max-w-[425px]">
