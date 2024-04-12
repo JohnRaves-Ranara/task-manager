@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter as FontSans} from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
+import TasksContextProvider from "@/contexts/tasksContext";
+import CompletedTasksContextProvider from "@/contexts/completedTasksContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +25,13 @@ export default function RootLayout({
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
-        )}>{children}</body>
+        )}>
+          <TasksContextProvider>
+            <CompletedTasksContextProvider>
+              {children}
+            </CompletedTasksContextProvider>
+          </TasksContextProvider>
+          </body>
     </html>
   );
 }

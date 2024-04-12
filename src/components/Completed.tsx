@@ -1,12 +1,10 @@
-import { Task } from "@/app/page";
 import TaskCard from "./TaskCard";
+import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
 
-type CompletedProps = {
-  completedTasks: Task[];
-  toggleCheckBox: (taskIndex:number, groupType:string) => void;
-};
+const Completed = () => {
 
-const Completed = ({ completedTasks, toggleCheckBox }: CompletedProps) => {
+  const {completedTasks, setCompletedTasks} = useCompletedTasksContext()
+
   return (
     <div className="space-y-4 w-full">
       <h1>Completed:</h1>
@@ -21,7 +19,6 @@ const Completed = ({ completedTasks, toggleCheckBox }: CompletedProps) => {
               title={task.title}
               description={task.description}
               isChecked={task.isChecked}
-              toggleCheckBox={toggleCheckBox}
               groupType="completedTasks"
             />
           ))

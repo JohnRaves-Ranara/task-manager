@@ -25,9 +25,7 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { Task } from "@/app/page";
-import { HeaderProps } from "./Header";
-
-type AddTaskProps = HeaderProps
+import { useTasksContext } from "@/contexts/tasksContext";
 
 const formSchema = z.object({
   title: z
@@ -41,7 +39,13 @@ const formSchema = z.object({
     .max(200),
 });
 
-const AddTask = ({ addTask }: AddTaskProps) => {
+const AddTask = () => {
+
+  //CONTEXT
+  const {tasks, setTasks} = useTasksContext()
+  const addTask = (newTask: Task) => {
+    setTasks([...tasks, newTask])
+  }
 
   const [openDialog, setOpenDialog] = useState(false)
   
@@ -60,6 +64,7 @@ const AddTask = ({ addTask }: AddTaskProps) => {
   }
 
   return (
+    
     <div>
       <Dialog open= {openDialog} onOpenChange={() => {
         setOpenDialog(!openDialog)

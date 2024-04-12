@@ -7,13 +7,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useTasksContext } from "@/contexts/tasksContext";
+import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
+import { Task } from "@/app/page";
 
 type TaskCardProps = {
   index: number;
   title: string;
   description: string;
   isChecked: boolean;
-  toggleCheckBox: Function;
   groupType: string;
 };
 
@@ -22,9 +24,30 @@ const TaskCard = ({
   title,
   description,
   isChecked,
-  toggleCheckBox,
   groupType,
 }: TaskCardProps) => {
+
+  const {tasks, setTasks} = useTasksContext()
+  const {completedTasks, setCompletedTasks} = useCompletedTasksContext()
+
+  const toggleCheckBox = (taskIndex:number, groupType:string) => {
+    if(groupType==='tasks'){
+      const taskToggled:Task = tasks[taskIndex]
+      taskToggled.isChecked = true
+      //remove task from tasks
+      setTasks(tasks.filter((task, index) => index !== taskIndex))
+      //add task to completed tasks
+      setCompletedTasks([...completedTasks, taskToggled])
+    }else{
+      const taskToggled:Task = completedTasks[taskIndex]
+      taskToggled.isChecked = false
+      //remove task from completed tasks
+      setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
+      //add task to tasks
+      setTasks([...tasks, taskToggled])
+    }
+  }
+
   return (
     <Card className="max-w-[330px] bg-red-200">
       <CardHeader className="flex flex-row items-start gap-4">

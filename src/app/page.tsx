@@ -1,11 +1,11 @@
 "use client"
 import { createContext, useState } from "react";
-import TaskCard from "@/components/TaskCard";
 import Header from "@/components/Header";
 import Dashboard from "@/components/Dashboard";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import TasksContextProvider from "@/contexts/tasksContext";
+import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
+import { useTasksContext } from "@/contexts/tasksContext";
+
 // @refresh reset
 
 export type Task = {
@@ -18,51 +18,41 @@ export type Task = {
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [completedTasks, setCompletedTasks] = useState<Task[]>([])
-  // const taskContext = createContext({tasks, setTasks})
-  // const completedTasksContext = createContext({completedTasks, setCompletedTasks})
 
-  const toggleCheckBox = (taskIndex:number, groupType:string) => {
-    if(groupType==='tasks'){
-      const taskToggled:Task = tasks[taskIndex]
-      taskToggled.isChecked = true
-      //remove task from tasks
-      setTasks(tasks.filter((task, index) => index !== taskIndex))
-      //add task to completed tasks
-      setCompletedTasks([...completedTasks, taskToggled])
-    }else{
-      const taskToggled:Task = completedTasks[taskIndex]
-      taskToggled.isChecked = false
-      //remove task from completed tasks
-      setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
-      //add task to tasks
-      setTasks([...tasks, taskToggled])
-    }
-  }
+  // const toggleCheckBox = (taskIndex:number, groupType:string) => {
+  //   if(groupType==='tasks'){
+  //     const taskToggled:Task = tasks[taskIndex]
+  //     taskToggled.isChecked = true
+  //     //remove task from tasks
+  //     setTasks(tasks.filter((task, index) => index !== taskIndex))
+  //     //add task to completed tasks
+  //     setCompletedTasks([...completedTasks, taskToggled])
+  //   }else{
+  //     const taskToggled:Task = completedTasks[taskIndex]
+  //     taskToggled.isChecked = false
+  //     //remove task from completed tasks
+  //     setCompletedTasks(completedTasks.filter((completedTask, index) => index !== taskIndex))
+  //     //add task to tasks
+  //     setTasks([...tasks, taskToggled])
+  //   }
+  // }
 
-  const addTask = (newTask: Task) => {
-    setTasks([...tasks, newTask])
-  }
 
-  const editTask = (taskIndex: number,editedTask: Task) => {
-    const newTasks = tasks.map((task, index) =>  {
-      if(index===taskIndex){
-        return editedTask
-      }else{
-        return task
-      }
-    })
-    setTasks(newTasks)
-  }
+  // const editTask = (taskIndex: number,editedTask: Task) => {
+  //   const newTasks = tasks.map((task, index) =>  {
+  //     if(index===taskIndex){
+  //       return editedTask
+  //     }else{
+  //       return task
+  //     }
+  //   })
+  //   setTasks(newTasks)
+  // }
 
   return (
     <div>
-      <Header addTask={addTask}></Header>
-      <Dashboard tasks= {tasks} completedTasks={completedTasks} toggleCheckBox={toggleCheckBox}/>
-      {/* <taskContext.Provider value={{tasks, setTasks}}>
-        <completedTasksContext.Provider value={{completedTasks, setCompletedTasks}}>
-          <Header ></Header>
-        </completedTasksContext.Provider>
-      </taskContext.Provider> */}
+      <Header></Header>
+      <Dashboard/>
     </div>
   );
 

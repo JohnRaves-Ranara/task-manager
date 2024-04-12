@@ -1,13 +1,11 @@
 import { Task } from "@/app/page";
 import TaskCard from "./TaskCard";
+import { useTasksContext } from "@/contexts/tasksContext";
 
+const TaskList = () => {
 
-type TaskListProps = {
-  tasks: Task[];
-  toggleCheckBox: (taskIndex:number, groupType:string) => void;
-};
+  const {tasks, setTasks} = useTasksContext()
 
-const TaskList = ({ tasks, toggleCheckBox }: TaskListProps) => {
   return (
     <div className="space-y-4 w-full">
       <h1>Tasks:</h1>
@@ -23,7 +21,6 @@ const TaskList = ({ tasks, toggleCheckBox }: TaskListProps) => {
                 title={task.title}
                 description={task.description}
                 isChecked={task.isChecked}
-                toggleCheckBox={toggleCheckBox}
                 groupType="tasks"
               />
             );
