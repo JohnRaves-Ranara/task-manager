@@ -25,7 +25,7 @@ export default function CompletedTasksContextProvider({
   children,
 }: CompletedTasksContextProviderProps) {
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
-
+  
   return (
     <CompletedTasksContext.Provider
       value={{completedTasks, setCompletedTasks}}

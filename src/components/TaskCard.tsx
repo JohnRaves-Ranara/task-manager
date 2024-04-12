@@ -91,12 +91,7 @@ const TaskCard = ({
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <TaskAction
-              editDialogTrigger={<DropdownMenuItem>Edit</DropdownMenuItem>}
-              actionType="edit"
-              title={title}
-              description={description}
-            ></TaskAction>
+            {/* <TaskAction actionType="edit" title={title} description={description}></TaskAction> */}
             <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

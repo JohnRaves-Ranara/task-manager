@@ -5,6 +5,8 @@ const Completed = () => {
 
   const {completedTasks, setCompletedTasks} = useCompletedTasksContext()
 
+  
+
   return (
     <div className="space-y-4 w-full">
       <h1>Completed:</h1>

@@ -26,6 +26,7 @@ import {
 import React, { useState } from "react";
 import { Task } from "@/app/page";
 import { useTasksContext } from "@/contexts/tasks-context";
+import { useTaskActionDialogContext } from "@/contexts/taskaction-dialog-context";
 
 const formSchema = z.object({
   title: z
@@ -49,14 +50,13 @@ type TaskActionProps = {
 const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskActionProps) => {
   //CONTEXT
   const {tasks, setTasks} = useTasksContext()
+  const {openDialog, setOpenDialog} = useTaskActionDialogContext()
 
   //add task function
   const addTask = (newTask: Task) => {
     setTasks([...tasks, newTask])
   }
 
-  const [openDialog, setOpenDialog] = useState(false)
-  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,7 +80,7 @@ const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskAc
     <div>
       <Dialog open= {openDialog} onOpenChange={() => {
         setOpenDialog(!openDialog)
-      }}>~
+      }}>
         <DialogTrigger asChild>
           {actionType === 'add' ? <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button> : editDialogTrigger}
         </DialogTrigger>

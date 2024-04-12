@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils"
 import CompletedTasksContextProvider from "@/contexts/completed-tasks-context";
 import TasksContextProvider from "@/contexts/tasks-context";
+import TaskActionDialogContextProvider from "@/contexts/taskaction-dialog-context";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +29,9 @@ export default function RootLayout({
         )}>
           <TasksContextProvider>
             <CompletedTasksContextProvider>
-              {children}
+              <TaskActionDialogContextProvider>
+                  {children}
+              </TaskActionDialogContextProvider>
             </CompletedTasksContextProvider>
           </TasksContextProvider>
           </body>
