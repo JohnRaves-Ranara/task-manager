@@ -1,6 +1,6 @@
 import AddTask from "./AddTask";
 import { Task } from "@/app/page";
-import { useTasksContext } from "@/contexts/tasksContext";
+import { useTasksContext } from "@/contexts/tasks-context";
 import { useContext } from "react";
 
 // export type HeaderProps = {

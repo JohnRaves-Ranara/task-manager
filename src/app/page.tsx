@@ -2,9 +2,9 @@
 import { createContext, useState } from "react";
 import Header from "@/components/Header";
 import Dashboard from "@/components/Dashboard";
-import TasksContextProvider from "@/contexts/tasksContext";
-import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
-import { useTasksContext } from "@/contexts/tasksContext";
+import TasksContextProvider from "@/contexts/tasks-context";
+import { useCompletedTasksContext } from "@/contexts/completed-tasks-context";
+import { useTasksContext } from "@/contexts/tasks-context";
 
 // @refresh reset
 

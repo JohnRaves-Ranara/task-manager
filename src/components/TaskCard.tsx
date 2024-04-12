@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useTasksContext } from "@/contexts/tasksContext";
-import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
+import { useTasksContext } from "@/contexts/tasks-context";
+import { useCompletedTasksContext } from "@/contexts/completed-tasks-context";
 import { Task } from "@/app/page";
 
 type TaskCardProps = {

@@ -1,5 +1,5 @@
 import TaskCard from "./TaskCard";
-import { useCompletedTasksContext } from "@/contexts/completedTasksContext";
+import { useCompletedTasksContext } from "@/contexts/completed-tasks-context";
 
 const Completed = () => {
 
