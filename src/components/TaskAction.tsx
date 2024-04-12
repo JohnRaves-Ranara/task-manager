@@ -72,9 +72,7 @@ const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskAc
   }
 
   function onSubmitEditTask(values: z.infer<typeof formSchema>) {
-    // addTask({...values, isChecked:false})
-    // form.reset()
-    // setOpenDialog(false)
+    //edit function here
   }
 
   return (
@@ -82,7 +80,7 @@ const TaskAction = ({actionType, title, description, editDialogTrigger} : TaskAc
     <div>
       <Dialog open= {openDialog} onOpenChange={() => {
         setOpenDialog(!openDialog)
-      }}>
+      }}>~
         <DialogTrigger asChild>
           {actionType === 'add' ? <Button className="h-16 w-36 text-md rounded-xl">Add Task</Button> : editDialogTrigger}
         </DialogTrigger>
