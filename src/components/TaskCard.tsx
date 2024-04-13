@@ -54,6 +54,10 @@ const TaskCard = ({
 
   };
 
+  const deleteTask = (id:number) => {
+    setTasks(tasks.filter((task) => task.id!==id))
+  }
+
   return (
     <Card className="max-w-[330px] bg-red-200">
       <CardHeader className="flex flex-row items-start gap-4">
@@ -66,7 +70,7 @@ const TaskCard = ({
           <CardTitle className="text-lg">{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </div>
-        <DropdownMenu>
+        <DropdownMenu>  
           <DropdownMenuTrigger>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +92,7 @@ const TaskCard = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <TaskAction actionType="edit" id={id} title={title} description={description}/>
-            <button className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm">Delete</button>
+            <button onClick={()=>{deleteTask(id)}} className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm">Delete</button>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
