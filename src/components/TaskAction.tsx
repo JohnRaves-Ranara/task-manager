@@ -40,14 +40,14 @@ const formSchema = z.object({
 });
 
 type TaskActionProps = {
-  taskIndex?: number;
+  id?: number;
   actionType: "add" | "edit";
   title?: string;
   description?: string;
 };
 
 const TaskAction = ({
-  taskIndex,
+  id,
   actionType,
   title,
   description,
@@ -65,23 +65,26 @@ const TaskAction = ({
   });
 
   function onSubmitAddTask(values: z.infer<typeof formSchema>) {
-    const newTask: Task = { ...values, isChecked: false };
+    const newTask: Task = { ...values, id: tasks.length + 1, isChecked: false };
     setTasks([...tasks, newTask]);
     form.reset();
     setOpenDialog(false);
   }
 
   function onSubmitEditTask(values: z.infer<typeof formSchema>) {
-    if (taskIndex !== undefined) {
-      const taskToBeEdited: Task = tasks[taskIndex];
+    const taskToBeEdited: Task | undefined = tasks.find(
+      (task) => task.id === id
+    );
+    if (taskToBeEdited !== undefined) {
       //edit the task
       const editedTask: Task = {
         ...values,
+        id: taskToBeEdited.id,
         isChecked: taskToBeEdited.isChecked,
       };
       //update tasks with a new array that replaces the old task with the new
-      const updatedTasks = tasks.map((task, index) => {
-        if (index === taskIndex) {
+      const updatedTasks = tasks.map((task) => {
+        if (id === task.id) {
           return editedTask;
         } else {
           return task;

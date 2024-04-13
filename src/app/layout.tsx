@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter as FontSans} from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
-import CompletedTasksContextProvider from "@/contexts/completed-tasks-context";
 import TasksContextProvider from "@/contexts/tasks-context";
 import TaskActionDialogContextProvider from "@/contexts/taskaction-dialog-context";
 
@@ -28,11 +27,9 @@ export default function RootLayout({
           fontSans.variable
         )}>
           <TasksContextProvider>
-            <CompletedTasksContextProvider>
               <TaskActionDialogContextProvider>
                   {children}
               </TaskActionDialogContextProvider>
-            </CompletedTasksContextProvider>
           </TasksContextProvider>
           </body>
     </html>

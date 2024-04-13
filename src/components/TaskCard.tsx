@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useTasksContext } from "@/contexts/tasks-context";
-import { useCompletedTasksContext } from "@/contexts/completed-tasks-context";
 import { Task } from "@/app/page";
 import {
   DropdownMenu,
@@ -22,42 +21,37 @@ import TaskActionDialogContextProvider, { useTaskActionDialogContext } from "@/c
 import TaskAction from "./TaskAction";
 
 type TaskCardProps = {
-  index: number;
+  id: number
   title: string;
   description: string;
   isChecked: boolean;
-  groupType: string;
 };
 
 const TaskCard = ({
-  index,
+  id,
   title,
   description,
   isChecked,
-  groupType,
 }: TaskCardProps) => {
   const { tasks, setTasks } = useTasksContext();
-  const { completedTasks, setCompletedTasks } = useCompletedTasksContext();
-  const {openDialog, setOpenDialog} = useTaskActionDialogContext()
 
-  const toggleCheckBox = (taskIndex: number, groupType: string) => {
-    if (groupType === "tasks") {
-      const taskToggled: Task = tasks[taskIndex];
-      taskToggled.isChecked = true;
-      //remove task from tasks
-      setTasks(tasks.filter((task, index) => index !== taskIndex));
-      //add task to completed tasks
-      setCompletedTasks([...completedTasks, taskToggled]);
-    } else {
-      const taskToggled: Task = completedTasks[taskIndex];
-      taskToggled.isChecked = false;
-      //remove task from completed tasks
-      setCompletedTasks(
-        completedTasks.filter((completedTask, index) => index !== taskIndex)
-      );
-      //add task to tasks
-      setTasks([...tasks, taskToggled]);
-    }
+  const toggleCheckBox = () => {
+    //update that task's ischecked to true/false
+    const newTasks = tasks.map((task) => {
+      if(id===task.id){
+        return {
+          ...task,
+          isChecked: !task.isChecked
+        }
+      }
+      else{
+        return task
+      }
+    })
+
+    //set tasks new value
+    setTasks(newTasks)
+
   };
 
   return (
@@ -65,7 +59,7 @@ const TaskCard = ({
       <CardHeader className="flex flex-row items-start gap-4">
         <Checkbox
           checked={isChecked}
-          onClick={() => toggleCheckBox(index, groupType)}
+          onClick={() => toggleCheckBox()}
           className="size-6 mt-2"
         ></Checkbox>
         <div className="space-y-4">
@@ -93,7 +87,7 @@ const TaskCard = ({
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <TaskAction actionType="edit" taskIndex={index} title={title} description={description}/>
+            <TaskAction actionType="edit" id={id} title={title} description={description}/>
             <button className="hover:cursor-pointer w-full text-start p-2 hover:bg-accent text-sm rounded-sm">Delete</button>
           </DropdownMenuContent>
         </DropdownMenu>
