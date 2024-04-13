@@ -52,7 +52,7 @@ const TaskCard = ({
   }
 
   return (
-    <Card className="max-w-[330px] bg-red-200">
+    <Card className="max-w-[330px] bg-yellow-100">
       <CardHeader className="flex flex-row items-start gap-4">
         <Checkbox
           checked={isChecked}
