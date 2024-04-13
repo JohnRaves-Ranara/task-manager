@@ -6,7 +6,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Task } from "@/app/page";
 
 type TaskActionContextProviderProps = {
     children: React.ReactNode

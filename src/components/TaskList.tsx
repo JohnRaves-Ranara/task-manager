@@ -1,4 +1,3 @@
-import { Task } from "@/app/page";
 import TaskCard from "./TaskCard";
 import { useTasksContext } from "@/contexts/tasks-context";
 

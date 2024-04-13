@@ -1,23 +1,16 @@
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useTasksContext } from "@/contexts/tasks-context";
-import { Task } from "@/app/page";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import TaskActionDialogContextProvider, { useTaskActionDialogContext } from "@/contexts/taskaction-dialog-context";
 import TaskAction from "./TaskAction";
 
 type TaskCardProps = {
